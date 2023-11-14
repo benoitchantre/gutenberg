@@ -191,16 +191,12 @@ export class RichText extends Component {
 			selectionEnd: end,
 			colorPalette,
 		} = this.props;
-		const { value = '' } = this.props;
+		const { value } = this.props;
 		const currentValue = this.formatToValue( value );
 
 		const { formats, replacements, text } = currentValue;
 		const { activeFormats } = this.state;
-		const newFormats = getFormatColors(
-			typeof value === 'string' ? value : value.toString(),
-			formats,
-			colorPalette
-		);
+		const newFormats = getFormatColors( value, formats, colorPalette );
 
 		return {
 			formats: newFormats,

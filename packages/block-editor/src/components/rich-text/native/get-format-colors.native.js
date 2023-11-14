@@ -8,7 +8,7 @@ const REGEX_TO_MATCH = /^has-(.*)-color$/;
 const TAGS_TO_SEARCH = /\<mark/;
 
 export function getFormatColors( value, formats, colors ) {
-	if ( value?.search( TAGS_TO_SEARCH ) !== -1 ) {
+	if ( value?.toString()?.search( TAGS_TO_SEARCH ) !== -1 ) {
 		const newFormats = formats.slice();
 
 		newFormats.forEach( ( format ) => {
