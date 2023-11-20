@@ -26,6 +26,7 @@ import Link from '../routes/link';
 import { useAddedBy, AvatarImage } from '../list/added-by';
 import { TEMPLATE_POST_TYPE } from '../../utils/constants';
 import { DataViews } from '../dataviews';
+import { ENUMERATION_TYPE, OPERATOR_IN } from '../dataviews/constants';
 import {
 	useResetTemplateAction,
 	deleteTemplateAction,
@@ -43,6 +44,7 @@ const DEFAULT_VIEW = {
 	// better to keep track of the hidden ones.
 	hiddenFields: [],
 	layout: {},
+	filters: [],
 };
 
 function normalizeSearchInput( input = '' ) {
@@ -100,6 +102,19 @@ export default function DataviewsTemplates() {
 		useEntityRecords( 'postType', TEMPLATE_POST_TYPE, {
 			per_page: -1,
 		} );
+	const allAuthorElements = useMemo( () => {
+		if ( ! allTemplates ) {
+			return EMPTY_ARRAY;
+		}
+		const authors = new Set();
+		allTemplates.forEach( ( template ) => {
+			authors.add( template.author_text );
+		} );
+		return Array.from( authors ).map( ( author, i ) => ( {
+			value: author,
+			label: author,
+		} ) );
+	}, [ allTemplates ] );
 	const { shownTemplates, paginationInfo } = useMemo( () => {
 		if ( ! allTemplates ) {
 			return {
@@ -121,6 +136,20 @@ export default function DataviewsTemplates() {
 						normalizedSearch
 					)
 				);
+			} );
+		}
+
+		if ( view.filters.length > 0 ) {
+			view.filters.forEach( ( filter ) => {
+				if (
+					filter.field === 'author' &&
+					filter.operator === OPERATOR_IN &&
+					filter.value !== ''
+				) {
+					filteredTemplates = filteredTemplates.filter( ( item ) => {
+						return item.author_text === filter.value;
+					} );
+				}
 			} );
 		}
 		// Handle sorting.
@@ -195,9 +224,11 @@ export default function DataviewsTemplates() {
 				},
 				enableHiding: false,
 				enableSorting: true,
+				type: ENUMERATION_TYPE,
+				elements: allAuthorElements,
 			},
 		],
-		[]
+		[ allAuthorElements ]
 	);
 	const resetTemplateAction = useResetTemplateAction();
 	const actions = useMemo(
