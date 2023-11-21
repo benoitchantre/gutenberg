@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Bug Fix
+
+-   `DateTime`: Make the Timezone indication render a tooltip only when necessary. ([#56214](https://github.com/WordPress/gutenberg/pull/56214)).
+
 ### Experimental
 
 -   `Tabs`: Memoize and expose the component context ([#56224](https://github.com/WordPress/gutenberg/pull/56224)).
