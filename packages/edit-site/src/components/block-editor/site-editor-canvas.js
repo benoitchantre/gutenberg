@@ -28,6 +28,7 @@ import {
 } from '../../utils/constants';
 import { unlock } from '../../lock-unlock';
 import PageContentFocusManager from '../page-content-focus-manager';
+import BlockPreview from '../block-preview';
 
 const LAYOUT = {
 	type: 'default',
@@ -122,7 +123,10 @@ export default function SiteEditorCanvas() {
 							>
 								<EditorCanvas
 									enableResizing={ enableResizing }
-									settings={ settings }
+									settings={ {
+										...settings,
+										blockPreview: BlockPreview,
+									} }
 									contentRef={ contentRef }
 								>
 									{ resizeObserver }
