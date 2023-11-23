@@ -111,6 +111,9 @@ export default function ItemActions( { item, actions } ) {
 					<DropdownMenu
 						icon={ moreVertical }
 						label={ __( 'Actions' ) }
+						toggleProps={ {
+							size: "compact",
+						} }
 					>
 						{ () => (
 							<MenuGroup>
