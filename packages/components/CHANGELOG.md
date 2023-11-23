@@ -2,9 +2,13 @@
 
 ## Unreleased
 
-### Enhancements 
+### Enhancements
 
 -   `Button`: Add focus rings to focusable disabled buttons ([#56383](https://github.com/WordPress/gutenberg/pull/56383)).
+
+### Bug Fix
+
+-   `FormTokenField`: Fix broken suggestions scrollbar when the `__experimentalExpandOnFocus` prop is defined ([#56426](https://github.com/WordPress/gutenberg/pull/56426)).
 
 ### Experimental
 
