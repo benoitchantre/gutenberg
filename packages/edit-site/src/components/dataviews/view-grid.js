@@ -86,7 +86,7 @@ function ViewGridItem( { mediaField, visibleFields, item, view, actions } ) {
 						<FlexBlock>
 							<Text variant="muted">{ field.header }</Text>
 						</FlexBlock>
-						<FlexBlock style={ { textAlign: 'end' } }>
+						<FlexBlock>
 							{ field.render( { item, view } ) }
 						</FlexBlock>
 					</HStack>
