@@ -31,7 +31,11 @@ import {
 import SideEditor from './side-editor';
 import Media from '../media';
 import { unlock } from '../../lock-unlock';
-import { ENUMERATION_TYPE, OPERATOR_IN } from '../dataviews/constants';
+import {
+	ENUMERATION_TYPE,
+	OPERATOR_IN,
+	OPERATOR_NOT_IN,
+} from '../dataviews/constants';
 const { useLocation } = unlock( routerPrivateApis );
 
 const EMPTY_ARRAY = [];
@@ -132,6 +136,11 @@ export default function PagePages() {
 				filter.operator === OPERATOR_IN
 			) {
 				filters.author = filter.value;
+			} else if (
+				filter.field === 'author' &&
+				filter.operator === OPERATOR_NOT_IN
+			) {
+				filters.author_exclude = filter.value;
 			}
 		} );
 		// We want to provide a different default item for the status filter
