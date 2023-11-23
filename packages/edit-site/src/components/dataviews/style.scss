@@ -40,13 +40,13 @@
 	}
 }
 
-.dataviews-grid-view{
+.dataviews-grid-view {
 	@include break-wide() {
-		grid-template-columns: repeat( 3, 1fr ) !important; // Todo: eliminate !important dependency
+		grid-template-columns: repeat(3, 1fr) !important; // Todo: eliminate !important dependency
 	}
 
 	@include break-xhuge() {
-		grid-template-columns: repeat( 4, 1fr ) !important; // Todo: eliminate !important dependency
+		grid-template-columns: repeat(4, 1fr) !important; // Todo: eliminate !important dependency
 	}
 }
 
