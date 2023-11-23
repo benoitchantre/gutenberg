@@ -102,7 +102,6 @@ export default function ItemActions( { item, actions } ) {
 							<PrimaryActionTrigger
 								key={ action.id }
 								action={ action }
-								item={ item }
 								onClick={ () => action.callback( item ) }
 							/>
 						);
@@ -112,7 +111,7 @@ export default function ItemActions( { item, actions } ) {
 						icon={ moreVertical }
 						label={ __( 'Actions' ) }
 						toggleProps={ {
-							size: "compact",
+							size: 'compact',
 						} }
 					>
 						{ () => (
