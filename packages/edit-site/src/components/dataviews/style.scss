@@ -40,6 +40,16 @@
 	}
 }
 
+.dataviews-grid-view{
+	@include break-wide() {
+		grid-template-columns: repeat( 3, 1fr ) !important; // Todo: eliminate !important dependency
+	}
+
+	@include break-xhuge() {
+		grid-template-columns: repeat( 4, 1fr ) !important; // Todo: eliminate !important dependency
+	}
+}
+
 .dataviews-view-grid__media-item-container {
 	position: relative;
 	z-index: 1;
