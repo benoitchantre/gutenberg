@@ -86,7 +86,7 @@ export default function ItemActions( { item, actions } ) {
 	}
 	return (
 		<div className="dataviews-item-actions-container">
-			<HStack justify="flex-end">
+			<HStack justify="flex-end" spacing={ 1 }>
 				{ !! primaryActions.length &&
 					primaryActions.map( ( action ) => {
 						if ( !! action.RenderModal ) {
