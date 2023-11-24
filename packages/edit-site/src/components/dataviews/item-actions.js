@@ -85,65 +85,63 @@ export default function ItemActions( { item, actions } ) {
 		return null;
 	}
 	return (
-		<div className="dataviews-item-actions-container">
-			<HStack justify="flex-end" spacing={ 1 }>
-				{ !! primaryActions.length &&
-					primaryActions.map( ( action ) => {
-						if ( !! action.RenderModal ) {
-							return (
-								<ActionWithModal
-									key={ action.id }
-									action={ action }
-									ActionTrigger={ PrimaryActionTrigger }
-								/>
-							);
-						}
+		<HStack justify="flex-end" spacing={ 1 }>
+			{ !! primaryActions.length &&
+				primaryActions.map( ( action ) => {
+					if ( !! action.RenderModal ) {
 						return (
-							<PrimaryActionTrigger
+							<ActionWithModal
 								key={ action.id }
 								action={ action }
-								onClick={ () => action.callback( item ) }
+								ActionTrigger={ PrimaryActionTrigger }
 							/>
 						);
-					} ) }
-				{ !! secondaryActions.length && (
-					<DropdownMenu
-						icon={ moreVertical }
-						label={ __( 'Actions' ) }
-						toggleProps={ {
-							size: 'compact',
-						} }
-					>
-						{ () => (
-							<MenuGroup>
-								{ secondaryActions.map( ( action ) => {
-									if ( !! action.RenderModal ) {
-										return (
-											<ActionWithModal
-												key={ action.id }
-												action={ action }
-												item={ item }
-												ActionTrigger={
-													SecondaryActionTrigger
-												}
-											/>
-										);
-									}
+					}
+					return (
+						<PrimaryActionTrigger
+							key={ action.id }
+							action={ action }
+							onClick={ () => action.callback( item ) }
+						/>
+					);
+				} ) }
+			{ !! secondaryActions.length && (
+				<DropdownMenu
+					icon={ moreVertical }
+					label={ __( 'Actions' ) }
+					toggleProps={ {
+						size: 'compact',
+					} }
+				>
+					{ () => (
+						<MenuGroup>
+							{ secondaryActions.map( ( action ) => {
+								if ( !! action.RenderModal ) {
 									return (
-										<SecondaryActionTrigger
+										<ActionWithModal
 											key={ action.id }
 											action={ action }
-											onClick={ () =>
-												action.callback( item )
+											item={ item }
+											ActionTrigger={
+												SecondaryActionTrigger
 											}
 										/>
 									);
-								} ) }
-							</MenuGroup>
-						) }
-					</DropdownMenu>
-				) }
-			</HStack>
-		</div>
+								}
+								return (
+									<SecondaryActionTrigger
+										key={ action.id }
+										action={ action }
+										onClick={ () =>
+											action.callback( item )
+										}
+									/>
+								);
+							} ) }
+						</MenuGroup>
+					) }
+				</DropdownMenu>
+			) }
+		</HStack>
 	);
 }

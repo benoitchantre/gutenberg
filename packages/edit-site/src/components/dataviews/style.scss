@@ -48,28 +48,6 @@
 	@include break-xhuge() {
 		grid-template-columns: repeat(4, 1fr) !important; // Todo: eliminate !important dependency
 	}
-}
-
-.dataviews-view-grid__media-item-container {
-	position: relative;
-	z-index: 1;
-
-	&.is-hovered {
-		.dataviews-item-actions-container {
-			display: block;
-		}
-	}
-
-	.dataviews-item-actions-container {
-		position: absolute;
-		right: $grid-unit-10;
-		top: $grid-unit-10;
-		display: none;
-		z-index: 2;
-		border: $border-width solid $gray-900;
-		border-radius: $radius-block-ui;
-		background-color: $white;
-	}
 
 	.dataviews-view-grid__media {
 		width: 100%;
