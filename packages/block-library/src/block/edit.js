@@ -46,14 +46,11 @@ function isPartiallySynced( block ) {
 	);
 }
 function getPartiallySyncedAttributes( block ) {
-	const attributes = {};
-	for ( const [ attribute, connection ] of Object.entries(
-		block.attributes.connections.attributes
-	) ) {
-		if ( connection.source !== 'pattern_attributes' ) continue;
-		attributes[ attribute ] = connection.value;
-	}
-	return attributes;
+	return Object.entries( block.attributes.connections.attributes )
+		.filter(
+			( [ , connection ] ) => connection.source === 'pattern_attributes'
+		)
+		.map( ( [ attributeKey ] ) => attributeKey );
 }
 
 const fullAlignments = [ 'full', 'wide', 'left', 'right' ];
@@ -98,13 +95,15 @@ function applyInitialDynamicContent(
 			dynamicContent,
 			defaultValues
 		);
-		if ( ! isPartiallySynced( block ) ) return { ...block, innerBlocks };
+		const blockId = block.attributes.metadata?.id;
+		if ( ! isPartiallySynced( block ) || ! blockId )
+			return { ...block, innerBlocks };
 		const attributes = getPartiallySyncedAttributes( block );
 		const newAttributes = { ...block.attributes };
-		for ( const [ attributeKey, id ] of Object.entries( attributes ) ) {
-			defaultValues[ id ] = block.attributes[ attributeKey ];
-			if ( dynamicContent[ id ] ) {
-				newAttributes[ attributeKey ] = dynamicContent[ id ];
+		for ( const attributeKey of attributes ) {
+			defaultValues[ blockId ] = block.attributes[ attributeKey ];
+			if ( dynamicContent[ blockId ] ) {
+				newAttributes[ attributeKey ] = dynamicContent[ blockId ];
 			}
 		}
 		return {
@@ -123,11 +122,14 @@ function getDynamicContentFromBlocks( blocks, defaultValues ) {
 			dynamicContent,
 			getDynamicContentFromBlocks( block.innerBlocks, defaultValues )
 		);
-		if ( ! isPartiallySynced( block ) ) continue;
+		const blockId = block.attributes.metadata?.id;
+		if ( ! isPartiallySynced( block ) || ! blockId ) continue;
 		const attributes = getPartiallySyncedAttributes( block );
-		for ( const [ attributeKey, id ] of Object.entries( attributes ) ) {
-			if ( block.attributes[ attributeKey ] !== defaultValues[ id ] ) {
-				dynamicContent[ id ] = block.attributes[ attributeKey ];
+		for ( const attributeKey of attributes ) {
+			if (
+				block.attributes[ attributeKey ] !== defaultValues[ blockId ]
+			) {
+				dynamicContent[ blockId ] = block.attributes[ attributeKey ];
 			}
 		}
 	}
